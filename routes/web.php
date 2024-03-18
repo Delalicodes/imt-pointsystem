@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('members.index');
-});
+Route::get('/',[MemberController::class, 'create']);
 
 // Route::resource('courses', CourseController::class);
 // Route::resource('members', MemberController::class);
