@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PointController;
@@ -43,6 +44,14 @@ Route::delete('/members/{id}/destroy',[MemberController::class, 'destroy'])->nam
 //Members Point
 Route::get('/points',[PointController::class, 'index'])->name('points.index');
 Route::post('/points/store',[PointController::class, 'store'])->name('points.store');
+Route::get('/get-member-points', [PointController::class, 'getMemberPoints'])->name('points.getMemberPoints');
+// Define a route in your web.php file
+Route::get('/get-members-and-points', 'PointController@getMembersAndPoints');
+
+
+
+
+
 
 
 

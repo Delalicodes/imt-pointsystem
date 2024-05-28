@@ -6,19 +6,23 @@ use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\Course;
 use App\Models\Point;
+use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
 {
-    public function index()
+
+    public function index(Request $request)
     {
         $members = Member::with(['course', 'points'])->get();
-
+        $selectedDay = $request->input('day');
         $points = Point::all();
         $courses = Course::all();
+        $groupByDay = Point::select(DB::raw('DAYNAME(created_at) as day_name'), DB::raw('DATE(created_at) as day_date'), DB::raw('count(*) as total'))
+        ->groupBy('day_name', 'day_date')
+        ->get();
 
+    return view('members.index', compact('members', 'courses', 'points', 'groupByDay'));
 
-
-        return view('members.index', compact('members', 'courses', 'points'));
     }
 
 
